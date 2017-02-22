@@ -60,3 +60,8 @@ Therefore, it is RECOMMENDED that plugins that plugins modifying events in a spe
 
 ## 6. Custom events
 Custom events SHOULD extend pocketmine\event\plugin\PluginEvent, preferrably with a superclass for all events from the same plugin.
+
+## ∞. Contact / Comments
+For any discussion, visit [the forum thread](https://forums.pmmp.io/threads/pqrs.855/).
+
+To show approval, "Like" the main post.
