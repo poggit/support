@@ -1,4 +1,4 @@
-# Plugin Quality Requirement Standards (PQRS) Version 1.1
+# Plugin Quality Requirement Standards (PQRS) Version 1.2
 
 ## 0. Definition of terms
 * Keywords of requirement levels used in this document are specified in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) and [RFC 6919](https://www.ietf.org/rfc/rfc6919.txt).
@@ -59,9 +59,11 @@ LOWEST -> LOW -> NORMAL -> HIGH -> HIGHEST -> MONITOR
 Therefore, it is RECOMMENDED that plugins that plugins modifying events in a specific manner (e.g. handling specific block interaction in a sign-clicking plugin) use LOW priority, while plugins modifying events in a large scale (e.g. area protection plugins cancelling all block interaction in an area) use HIGH priority.
 
 ## 6. Custom events
-Custom events SHOULD extend `pocketmine\event\plugin\PluginEvent`, preferrably with a superclass for all events from the same plugin.
+* Custom events SHOULD extend `pocketmine\event\plugin\PluginEvent`, preferrably with a superclass for all events from the same plugin.
+
+## 7. Library usage
+* When adding libraries to plugins, they must be shaded.
 
 ## ∞. Contact / Comments
-For any discussion, visit [the forum thread](https://forums.pmmp.io/threads/pqrs.855/).
-
-To show approval, "Like" the main post.
+* For any discussion, visit [the forum thread](https://forums.pmmp.io/threads/pqrs.855/).
+* To show approval, "Like" the main post.
