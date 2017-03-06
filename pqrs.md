@@ -46,7 +46,7 @@ Poggit hosts a W.I.P. (as of 2017-02-22) fully-qualified class name list at http
   * Plugins MUST NOT execute _any_ cURL calls.
   * Plugins REALLY SHOULD NOT use MySQL queries.
   * Plugins COULD use asynchronous tasks for file I/O on the local harddisk, but it is usually unnecessary.
-* As for operations during `onLoad()`, `onEnable()` and `onDisable()`, they should operate for 
+* As for operations during `onLoad()`, `onEnable()` and `onDisable()`, they MAY execute for a relatively long period of time, but SHOULD NOT be too long that makes the user believe that the server is not starting/stuck.
 
 ## 5. Event handling
 * Event handlers MUST NOT modify or cancel or uncancel events at the ``MONITOR` priority.
