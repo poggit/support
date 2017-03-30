@@ -1,4 +1,6 @@
 # Plugin Quality Requirement Standards (PQRS) Version 1.2
+## _i_. Rationale
+This document aims to describe the rules that plugin developers should abide to when developing plugins in order **to prevent inter-incompatibility between plugins**. It does not cover all requirements that a high-quality plugin should have, but a publicly available plugin should abide to these requirements to protect increase the compatibility of a plugin with other unknown plugins.
 
 ## 0. Definition of terms
 * Keywords of requirement levels used in this document are specified in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt) and [RFC 6919](https://www.ietf.org/rfc/rfc6919.txt).
@@ -62,15 +64,19 @@ Therefore, it is RECOMMENDED that plugins that plugins modifying events in a spe
 * Custom events SHOULD extend `pocketmine\event\plugin\PluginEvent`, preferrably with a superclass for all events from the same plugin.
 
 ## 7. Library usage
-* When adding libraries to plugins, they SHOULD BE shaded.
+* When adding libraries to plugins, the library classes SHOULD be shaded.
 
-## 8. Filesystem usage
+## 8. Filesystem usage and Data saving
 * CWD (current working directory)
   * Plugins MUST NOT assume that the cwd points to the server data path. Use `Server->getDataPath()` instead.
   * Plugins MIGHT `chdir()` temporarily, but MUST NOT assume that it will not be changed by other plugins. `chdir()` is allowed on other threads, since cwd is independent on each thread. But no matter which thread the code is executing on, it must invalidate the assumption of cwd whenever the program flow leaves the scope controlled by the plugin (e.g. if functions from other plugins are called or indirectly triggered, e.g. through calling events). Plugins are not required to reset the cwd to the server data path after changing it.
 * Plugin data SHOULD be stored in the data folder associated to the plugin, from `Plugin::getDataFolder()`.
 * Plugins SHOULD CONSIDER using an AsyncTask for file I/O events, e.g. file creation, directory scanning, since it may be slow in some systems.
+* If the plugin (dependency plugin) provides an API that accepts data from other plugins (dependent plugins) and stores them, the dependency plugin is responsible for compatibility of different dependent plugins. For instance, the dependency plugin should require dependents to pass the instance of their main class so that the dependent plugin's name or namespace can be prepended to the keys identifying the values stored by the plugin.
+  * If a plugin injects arbitrary data into saves managed by the server (e.g. NBT of entities), they MUST show attempt to separate the data from other plugins. For example, if an identifier for an entity used by the plugin is to be injected into an NBT of an entity, it must be stored under a CompoundTag named as the plugin's name or namespace, e.g. `$entity->namedtag->{$this->plugin->getName()} = $tag = new CompoundTag; $tag->whateverYouWantToCallIt = $tagsYourPluginCreated;`.
+* **NBT is a standard**. Do not create custom tag types.
 
 ## ∞. Contact / Comments
 * For any discussion, visit [the forum thread](https://forums.pmmp.io/threads/pqrs.855/).
 * To show approval, "Like" the main post.
+* Pull requests in the repo https://github.com/poggit/support/pulls will be created irregularly when changes are to be made on this document.
