@@ -62,7 +62,14 @@ Therefore, it is RECOMMENDED that plugins that plugins modifying events in a spe
 * Custom events SHOULD extend `pocketmine\event\plugin\PluginEvent`, preferrably with a superclass for all events from the same plugin.
 
 ## 7. Library usage
-* When adding libraries to plugins, they must be shaded.
+* When adding libraries to plugins, they SHOULD BE shaded.
+
+## 8. Filesystem usage
+* CWD (current working directory)
+  * Plugins MUST NOT assume that the cwd points to the server data path. Use `Server->getDataPath()` instead.
+  * Plugins MIGHT `chdir()` temporarily, but MUST NOT assume that it will not be changed by other plugins. `chdir()` is allowed on other threads, since cwd is independent on each thread. But no matter which thread the code is executing on, it must invalidate the assumption of cwd whenever the program flow leaves the scope controlled by the plugin (e.g. if functions from other plugins are called or indirectly triggered, e.g. through calling events). Plugins are not required to reset the cwd to the server data path after changing it.
+* Plugin data SHOULD be stored in the data folder associated to the plugin, from `Plugin::getDataFolder()`.
+* Plugins SHOULD CONSIDER using an AsyncTask for file I/O events, e.g. file creation, directory scanning, since it may be slow in some systems.
 
 ## ∞. Contact / Comments
 * For any discussion, visit [the forum thread](https://forums.pmmp.io/threads/pqrs.855/).
