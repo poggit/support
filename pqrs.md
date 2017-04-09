@@ -74,7 +74,7 @@ Therefore, it is RECOMMENDED that plugins that plugins modifying events in a spe
 * Plugins SHOULD CONSIDER using an AsyncTask for file I/O events, e.g. file creation, directory scanning, since it may be slow in some systems.
 * If the plugin (dependency plugin) provides an API that accepts data from other plugins (dependent plugins) and stores them, the dependency plugin is responsible for compatibility of different dependent plugins. For instance, the dependency plugin should require dependents to pass the instance of their main class so that the dependent plugin's name or namespace can be prepended to the keys identifying the values stored by the plugin.
   * If a plugin injects arbitrary data into saves managed by the server (e.g. NBT of entities), they MUST show attempt to separate the data from other plugins. For example, if an identifier for an entity used by the plugin is to be injected into an NBT of an entity, it must be stored under a CompoundTag named as the plugin's name or namespace, e.g. `$entity->namedtag->{$this->plugin->getName()} = $tag = new CompoundTag; $tag->whateverYouWantToCallIt = $tagsYourPluginCreated;`.
-* **NBT is a standard**. Do not create custom tag types.
+* **NBT is a standard**. Plugins MUST NOT create custom tag types.
 
 ## ∞. Contact / Comments
 * For any discussion, visit [the forum thread](https://forums.pmmp.io/threads/pqrs.855/).
