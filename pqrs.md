@@ -29,7 +29,7 @@ Poggit hosts a W.I.P. (as of 2017-02-22) fully-qualified class name list at http
 ## 2. Commands
 ### A) Registering commands
 * While PocketMine has a command prefix mechanism, where commands from different plugins can be distinguished through /pluginname:commandname, for users' convenience, developers REALLY SHOULD NOT name commands anything that is likely to duplicate with other plugins. Developers COULD (and WE KNOW YOU WON'T, because it is too inconvenient and duplication is likely although acceptable) check if the command names duplicate with other plugins before releasing them.
-  * Duplication of command names that are reasonably specfic, or merely aliases, are acceptable. However, command names (but not aliases) SHOULD NOT duplicate those from PocketMine, unless 
+  * Duplication of command names that are reasonably specific, or merely aliases, are acceptable. However, command names (but not aliases) SHOULD NOT duplicate those from PocketMine, unless 
 
 ### B) Overriding existing commands
 * Plugins SHOULD CONSIDER use this method recommended by @shoghicp: https://gist.github.com/a540360b7323f7cc656f
