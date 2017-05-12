@@ -44,7 +44,42 @@ Apparently, if you want to test the virion on a server, you need a plugin that u
 
 **Plugins using virions must not declare any functions whose return type or parameter types are classes from virions**. However, it's OK to pass objects from virions as long as they are passed with their superclass types declared in non-virion code. You may also want to create subclasses that extend classes from virions, and use the subclasses in the public API.
 
-To be continued...
+### Testing a plugin with an unpackaged virion
+Create a folder `virions` in the server root folder, and put the virion folder in it just like the plugins folder with DevTools folder plugin loader. Download the [_devirion_](https://poggit.pmmp.io/p/devirion) plugin to load the virions. Virions loaded with _devirion_ are not shaded, so they should not be used in production; instead, production servers should use phar plugins infected by virions.
+
+### Testing a plugin with a packaged virion.
+Same as that for an unpackaged virion, except that a .phar instead of a virion folder should be placed, just like the plugins folder with phar plugins. Virions loaded with _devirion_, no matter packaged or unpackaged, are not shaded and should not be used in production.
+
+## Creating a Poggit virion project
+A Poggit virion project must explicitly declare these two attributes in its project in .poggit.yml:
+
+```yaml
+projects:
+  virion_project_name_here:
+    type: library
+    model: virion
+```
+
+Other .poggit.yml attributes like `path`, `libs` etc. can also be included if necessary.
+
+## Declare virion dependency on Poggit
+You can specify the virions you wish to be included into your plugin builds in .poggit.yml `projects.$project_name.libs` attribute.
+
+```yaml
+projects:
+  virion_project_name_here:
+    libs:
+      - vendor: poggit-project
+        src: repo_owner_name/repo_name/project_name
+        version: 1.0.0
+        shade: syntax
+```
+
+`vendor` is either `poggit-project` (default) or `raw`.
+* If `raw` is used, no `version` is needed and `src` should either be an HTTP(S) URL (starting with `http://` or `https://`) or a path in the repo, pointing to a built virion phar file. If the src is a path in the repo, it must start with a leading `/`.
+* If the `vendor` is `poggit-project`, `src` should be a full project name (the path after `https://poggit.pmmp.io/ci/`) and `version` should be a [semver version constraint](https://getcomposer.org/doc/articles/versions.md#writing-basic-version-constraints).
+
+`shade` specifies the shading strategy, either `syntax` (default), `single` or `double`. Usually `single` and `double` should not be used.
 
 # Technical Specification
 ## Virion development
