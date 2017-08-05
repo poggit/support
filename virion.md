@@ -10,7 +10,7 @@ Virions are expected to be used by plugins, or by other virions. In this documen
 
 ## The workflow
 ### Developing a virion
-A virion does not need to contain a main class, but all symbols (classes, interfaces, traits, namespace functions and namespace constants) declared by the virion must be under the virion's namespace called the **antigen**, or under subnamespaces of the antigen. The antigen must be unique to the virion; no other virions or plugins can declare any symbols under the antigen namespace of its subnamespaces.
+A virion does not need to contain a main class, but all symbols (classes, interfaces, traits, namespace functions and namespace constants) declared by the virion must be under the virion's namespace called the **antigen**, or under subnamespaces of the antigen. The antigen must be unique to the virion; no other virions or plugins can declare any symbols under the antigen namespace or its subnamespaces.
 
 If the virion is to register other named global resources that cannot be put within namespaces, their names must either depend on the runtime namespace of a virion symbol or depend on a string provided by the virion user. For example, if the virion uses the AsyncTask thread store, the key passed to `AsyncTask::saveToThreadStore()` **must** be generated from the class's syntactic namespace reference (see the Appendix section for definition of "syntactic reference") or from a value passed from the virion user. `stream_wrapper_register()` is a similar case -- the protocol name must not be hardcoded by the virion.
 
