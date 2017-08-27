@@ -1,4 +1,4 @@
-# Official Poggit Virion Documentation, Version 1.1
+# Official Poggit Virion Documentation, Version 1.2
 
 ## Abstract
 Poggit Virions ("Virions") are PHP libraries specifically used in PocketMine plugins. This documentation provides information on the workflow of virion development and usage.
@@ -79,12 +79,13 @@ A virion user (plugin or virion that uses a virion) may declare virions used in 
 | Name | Description | Format / Example | Required/Optional |
 | :---: | :---: | :---: | :---: |
 | `format` | The format of the library | `virion` (the only valid value right now) | Optional (default `virion`) |
-| `vendor` | Import the virion from a Poggit build, or from a file? | `poggit-project` OR `raw` | Optional (default `poggit-project) |
+| `vendor` | Import the virion from a Poggit build, or from a file? | `poggit-project` OR `raw` | Optional (default `poggit-project`) |
 | `src` (`vendor: poggit-project`) | The full path of the Poggit project | `/projectName` (projects in the same repo) OR `repoOwner/repoName/projectName` | Required |
 | `src` (`vendor: raw`) | The HTTP/HTTPS URL to download the file, or a path relative to the project path in the repo | `https://example.com/virion.phar` OR `libs/virion.phar` | Required |
 | `version` (`vendor: poggit-project`) | The [SemVer constraint](https://getcomposer.org/doc/articles/versions.md) for the virion | `^1.0` | Required only if `vendor: poggit-project` |
 | `shade` | The shading strategy | `syntax` OR `single` OR `double` | Optional (default `syntax`) |
 | `branch` (`vendor: poggit-project`) | Only virion builds from this branch on the virion's repo will be used | the branch name OR `:default` for the default branch (usually `master`) OR `*`/`%` for any branches | Optional (default `:default`) |
+| `epitope` | An extra namespace part to append to the antigen | `.random`, `.sha`, `.none` or literal valid namespace part(s) | Optional (default `libs`) |
 
 > ##### Note
 > For security reasons, Poggit ignores the virion.php in raw virion files and always uses the latest `virion.php` from Poggit itself.
