@@ -106,9 +106,21 @@ php used_virion.phar virion_user.phar ${ANTIBODY_PREFIX}
 
 ## Appendix
 ### Syntactic references
-Non-syntactic references to symbols declared by virions must be avoided. All references to these symbols must only consist of T_STRING and T_NS_SEPARATOR tokens, e.g. `\poggit\libasynql\SqlResult` and `poggit\libasynql\SqlResult`.
+Basically, a syntactic reference is defined as:
 
-Syntactic references to the namespace of a symbol, combined with a string to form a non-syntactic reference to the symbol, is boundary and should be avoided. This syntactically-referenced namespace must either be the antigen itself or a subnamespace of the antigen declared by the virion.
+> A `T_NAMESPACE` (`namespace`), `T_USE` (`use`) or `T_NS_SEPARATOR` (`\`) token, or `T_USE` + `T_FUNCTION` (`use function`) or `T_USE` + `T_CONST` (`use const`), followed by a consecutive series of `T_STRING` (a non-keyword set of characters, i.e. part of the namespace) and `T_NS_SEPARATOR` (`\`).
+
+(Support for `use function` and `use const` was added in Virion Builder Version 1.1)
+
+In simple words, you should **only** reference a virion class/function/constant's namespace using the following formats:
+
+```php
+namespace name\space;
+use name\space\Clazz;
+use function name\space\func;
+use const name\space\CONSTANT;
+\name\space\Clazz::method();
+```
 
 For example, assuming we have a virion with the antigen `poggit\libasynql`:
 
@@ -132,9 +144,11 @@ $class = new \ReflectionClass(self::class);
 $class = new \ReflectionClass(static::class);
 $class = new \ReflectionClass(get_class());
 $class = new \ReflectionClass(__CLASS__);
-$class = new \ReflectionClass(__NAMESPACE . "\\SqlResult"); // a boundary case barely acceptable
+$class = new \ReflectionClass(__NAMESPACE__ . "\\SqlResult"); // a boundary case barely acceptable
 
 // non-syntactic reference
 $class = new \ReflectionClass("poggit\\libasynql\\SqlResult");
 $class = new \ReflectionClass('poggit\libasynql\SqlResult');
 ```
+
+Note that relative reference from the namespace will not be shaded. Therefore, **do not use relative references to virion namespaces**. However, you should avoid writing code in a namespace where the virion antigen is its sub-namespace, e.g. if the virion antigen is `namespace poggit\libasynql`, no code from the `namespace poggit` should be written.
