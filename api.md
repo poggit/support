@@ -1,6 +1,15 @@
 # Poggit API Documentation
 All Poggit API endpoints are still hosted on `https://poggit.pmmp.io`. Currently, Poggit does not support any API endpoints that require login.
 
+## Listing PocketMine API versions
+`https://poggit.pmmp.io/pmapis` serves a JSON object (API name as keys, objects as values) that describe PocketMine API versions.
+
+* `description`: a string array describing significant API changes in this version.
+* `php`: a string array: the minimum minor PHP version required by this version, in each PHP major version.
+* `indev`: boolean: whether the API has been finalized (whether it will change in the future).
+* `incompatible`: boolean. For the nth version, if `incompatible` is false, any plugins that support the (n-1)th version should also support it. This also indicates that if a plugin declares support for a certaion version, it also supports the subsequent versions until the next one with `incompatible: true`.
+* `phar`: This is an object, where the `default` attribute is a link to a PocketMine-MP.phar of that API version. More links may be added in the future.
+
 ## Retrieving resources
 In Poggit, a resource is a generated file. Examples include CI builds, release artifacts, release descriptions and release changelogs.
 
