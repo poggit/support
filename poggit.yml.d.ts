@@ -17,6 +17,12 @@ class dot_poggit_dot_yml{
 	 * If true, one PR build will be created every time a release is created.
 	 */
 	pulls: bool = true
+	/**
+	 * If set to false, builds won't be automatically triggered unless you used keywords like "poggit build all" or "poggit build <project name>"
+	 * in the commit message.
+	 */
+	"build-by-default": bool = true
+
 	projects: {
 		[projectName: string]: {
 			/**
