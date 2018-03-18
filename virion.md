@@ -1,4 +1,4 @@
-# Official Poggit Virion Documentation, Version 1.2
+# Official Poggit Virion Documentation, Version 1.3
 
 ## Abstract
 Poggit Virions ("Virions") are PHP libraries specifically used in PocketMine plugins. This documentation provides information on the workflow of virion development and usage.
@@ -100,6 +100,13 @@ php used_virion.phar virion_user.phar ${ANTIBODY_PREFIX}
 ```
 
 `${ANTIBODY_PREFIX}` should be the main namespace of the virion user (namespace of main class for plugins, antigen for virions). Remember to escape backslashes.
+
+## Extending virion CLI functionalities
+Virions can add custom commands by adding a file `cli-map.json` at the project root. The JSON file should contain an object mapping command names to execution files.
+
+If `cli-map.json` is present, Poggit's virion builder will also create a `cli-autoload.php` file which files can include. It will register an autoloader for the src directory.
+
+Command names must not end with `.phar`, otherwise they will be interpreted as plugin phars to shade.
 
 ## Limitations
 - Virion users must not expose virion classes in their API. If they have to expose such objects in their API, they should be wrapped in an interface declared by the virion user.
