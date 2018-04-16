@@ -4,7 +4,7 @@ Use the issues for support
 ## Ask questions
 Ask questions in the [Issues](https://github.com/poggit/support/issues) section. This also includes reporting individual misbehaviour.
 
-These questions should only be about Poggit itself. For plugin-related problems, please use their authors directly.
+These questions should only be about Poggit itself. For plugin-related problems, please use their authors' contacts directly.
 
 You may also contact us on Discord: https://discord.gg/NgHf9jt
 
