@@ -20,4 +20,4 @@ These rules are about the code in your plugin. Violating these rules may make yo
 ## (C) About the submit form
 These rules are about the plugin submission form on Poggit. Violating these rules will require you to submit your plugin again.
 
-1. The description must not repeat information displayed in other parts of the release page.
+1. The description must not repeat information displayed in other parts of the release page. See [Description Format Guide](description-format.md) for more information.
