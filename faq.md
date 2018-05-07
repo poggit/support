@@ -15,6 +15,11 @@ To release a plugin, you should first [build your plugin on Poggit CI](#how-to-b
 
 Go to your plugin's project page. Find the build you want to release, then click "Release..." on the leftmost column, choose "Submit"/"Update".
 
+### What are the plugin submission rules?
+First, you should follow [PQRS](pqrs.md), which is about how you should write your plugin so that it won't have conflict with other plugins. These are good practices that you should follow even if you aren't releasing your plugin on Poggit.
+
+Second, before you submit your plugin, see [Poggit Submission Rules](submit-rules.md).
+
 ### Poggit CI has a stolen plugin
 Poggit CI does not host code; it only hosts phar built from code on GitHub. Please [contact GitHub to takedown the repos containing stolen code](https://help.github.com/articles/dmca-takedown-policy/). We will not take down Poggit CI projects unless they violate copyright.
 
