@@ -41,7 +41,8 @@ class dot_poggit_dot_yml{
 			lang: bool = false // unused
 			projectId?: int // only useful when you need to rename projects
 			
-			compressBuilds: bool = true // whether to compress the phar
+			compressBuilds: bool = true // whether to compress each file in the phar
+			fullGzip: bool = false // whether to compress the whole phar file (may affect stubs with shebang lines)
 			
 			/**
 			 * Config for including virion libraries. See the virion documentation for details.
