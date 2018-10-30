@@ -26,6 +26,6 @@ These rules are about the plugin submission form on Poggit. If a plugin violates
 1. The description should give an idea what the plugin is about, why it is useful, etc. Do not assume everyone knows the terminology; explain them.
 2. The description must be available in English. Translations are allowed, but English must be available first. We assume English as the language that most users know.
 3. Do not provide irrelevant information in the description. See [description guide](description-format.md) for details. Do not advertise in the description. (Leaving a reasonable number of contacts is allowed)
-4. Format the description properly. The [description formatting documentation] helps formatting according to Poggit's special mechanisms like pagination.
+4. Format the description properly. The [description formatting documentation](description-formatting.md) helps formatting according to Poggit's special mechanisms like pagination.
 5. The change log should be informative, in case the commit messages are not informative enough. The change log should not consist of meaningless lines like `Updated README.md`.
 6. Pick a license carefully. If you want to use a custom license, make sure it is formal enough. Examples of bad licenses include `Everyone can use this plugin except leet.cc and @someone-I-hate`.
