@@ -1,13 +1,35 @@
 # Plugin Submission Rules
 
-## (A) About the plugin
+### (A) About the plugin
 These rules are about the idea of your plugin. Plugins with purpose violating these rules **will never be approved**.
 
-1. The plugin must be **complete and serve a purpose**. It is OK to have parts of the plugin not yet working, but they must be disabled by default. The other parts must serve a meaningful purpose. For example, it is reasonable to have a world editor plugin where only cuboid selection and setting blocks work, without support of spheres, copy/paste, etc. However, it is not reasonable to have a plugin where only cuboid selection works, because a plugin that only selects cuboids but does not do anything with it is completely useless.
-2. The plugin must **serve a *specific* purpose** and be useful to the majority of users. "Core plugins" are not accepted, because they are only useful on specific private servers. Plugins that contain many mutually irrelevant features are also not allowed, because they are a major source of bloatware (EssentialsPE and GrabBag are the only two exemptions due to their historical significance). Developers should strike a balance between "too bloated" and "too simple", because both are undesirable for users.
-3. **No duplicates**. If there is another plugin that covers every single feature your plugin has, you must not submit yours, unless the existing one has been outdated and unmaintained for more than one month.
-4. Libraries must be included as [virions](https://poggit.pmmp.io/virion). They must not be released as individual plugins, *unless* it manages the compatibility among multiple plugins (a.k.a. "API plugins"). Rule 3 ("no duplicates") is enforced more strictly regarding API plugins.
-5. Plugins must not **require payment**. If the plugin requires an external API, it must either be from a reputable provider (e.g. Google APIs) or has high transparency. It must be clear that the plugin cannot be used as a backdoor for hacking servers. If the external API requires payment, it must have a reasonably usable free plan (e.g. a rate-limited free plan for ordinary small/medium-scale servers). (Otherwise, Poggit reviewers will not be able to test it)
+#### 1. Complete and serve a purpose
+The plugin must be **complete and serve a purpose**. It is OK to have parts of the plugin not yet working, but they must be disabled by default. The other parts must serve a meaningful purpose.
+
+For example, it is reasonable to have a world editor plugin where only cuboid selection and setting blocks work, without support of spheres, copy/paste, etc. However, it is not reasonable to have a plugin where only cuboid selection works, because a plugin that only selects cuboids but does not do anything with it is completely useless.
+
+#### 2. Serve a *specific* purpose
+The plugin must **serve a *specific* purpose** and be useful to the majority of users.
+
+"Core plugins" are not accepted, because they are only useful on specific private servers.
+
+Plugins that contain many mutually irrelevant features are also not allowed, because they are a major source of bloatware (EssentialsPE and GrabBag are the only two exemptions due to their historical significance). Developers should strike a balance between "too bloated" and "too simple", because both are undesirable for users.
+
+#### 3. No duplicates
+If there is another plugin that covers every single feature your plugin has, you must not submit yours, unless the existing one has been outdated and unmaintained for more than one month. You may want to explain why your plugin is better than the existing ones in the description.
+
+#### 4. No remote code execution
+If the plugin requires an external API, it must either be from a reputable provider (e.g. Google APIs) or has high transparency. It must be clear that the plugin cannot be used as a backdoor for hacking servers. In particular, remote code execution is strictly prohibited. This includes auto-updaters from sources other than Poggit Release.
+
+#### 5. Payment must be optional
+The plugin must not impose limitations such that it is unusable without paying the developer. The plugin must at least be usable by a server with about 5 players online all-time. This is to make sure users have a chance to test your plugin without paying first.
+
+If the plugin uses an external API requires payment, it must have a reasonably usable free plan (e.g. a rate-limited free plan for ordinary small/medium-scale servers). It must also be transparent that paying will really do what is promised.
+
+#### 6. Libraries & API plugins
+Libraries must be included as [virions](https://poggit.pmmp.io/virion). They must not be released as individual plugins.
+
+The *only* exception is when the plugin manages the compatibility among other plugins (a.k.a. "API plugins"). Rule 3 ("no duplicates") is enforced more strictly regarding API plugins. API plugins must also have clear documentation for other plugin developers.
 
 ## (B) About the code
 These rules are about the code in your plugin. If a plugin violates these rules, reviewers **will reject the plugin**, and you will have to change your code and submit the new build.
