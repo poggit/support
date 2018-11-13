@@ -1,4 +1,7 @@
+NOTE: The PQRS has been **obsoleted** and migrated to section C of the [Poggit Plugin Submission Rules](https://poggit.pmmp.io/submit.rules).
+
 # Plugin Quality Requirement Standards (PQRS) Version 1.2
+
 ## _i_. Rationale
 This document aims to describe the rules that plugin developers should abide to when developing plugins in order **to prevent inter-incompatibility between plugins**. It does not cover all requirements that a high-quality plugin should have, but a publicly available plugin should abide to these requirements to protect increase the compatibility of a plugin with other unknown plugins.
 
