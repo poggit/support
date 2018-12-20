@@ -33,6 +33,9 @@ Libraries must be included as [virions](https://poggit.pmmp.io/virion). They mus
 
 The *only* exception is when the plugin manages the compatibility among other plugins (a.k.a. "API plugins"). Rule 3 ("no duplicates") is enforced more strictly regarding API plugins. API plugins must also have clear documentation for other plugin developers.
 
+### 7. Only submit your own plugins.
+**Do not submit plugins written by others** without their prior permission. If the author is inactive, it must be released through @poggit-orphanage. Create an issue at [orphanage office](https://github.com/poggit-orphanage/office/issues/new). You will be allowed to maintain the plugin as a member of @poggit-orphanage upon approval
+
 ## (B) About the code
 These rules are about the code in your plugin. If a plugin violates these rules, reviewers **will reject the plugin**, and you will have to change your code and submit the new build.
 
@@ -53,9 +56,6 @@ Plugins are discouraged from logging unnecessary "I have been enabled" status me
 
 ### 4. Default must be English
 It is great if your plugin supports other languages, but since English is the most common languages that everyone knows, the default language must be set as English.
-
-### 5. Only submit your own plugins.
-**Do not submit plugins written by others** without their prior permission. If the author is inactive, it must be released through @poggit-orphanage. Create an issue at [orphanage office](https://github.com/poggit-orphanage/office/issues/new). You will be allowed to maintain the plugin as a member of @poggit-orphanage upon approval
 
 ## (C) About compatibility
 These rules are here to make sure different plugins work well together. If a plugin violates these rules, reviewers **will reject the plugin**, and you will have to change your code and submit the new build.
