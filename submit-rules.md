@@ -47,12 +47,12 @@ Plugins must not list **redundant** API versions in the plugin.yml. Only the ear
 ### 2. No obfuscation
 The source code must be **readable and not obfuscated**. All PHP code can eventually be deobfuscated, so there is really no point of close-sourcing them.
 
-### 3. No eye-catching messages in startup/shutdown
-Colored messages, ASCII art, etc., are not allowed when the plugin is enabling/disabling under normal circumstances. This is explained in https://bit.ly/pmcolors.
+### 3. No useless messages in startup/shutdown
+Plugins must not output unnecessary status messages like "I have been enabled", "Author: Xxx", etc., unless the plugin startup/shutdown takes really much time (more than 1 second) such that the user may become impatient. See https://bit.ly/pmcolors
 
 They are allowed if they represent actual warnings/errors or if they are responding to user input.
 
-Plugins are discouraged from logging unnecessary "I have been enabled" status messages, unless it takes really much time (more than 1 second) such that the user may become impatient.
+Similarly, plugins must not create useless commands that merely report the plugin version, as this is entirely covered by the /version or /plugins command.
 
 ### 4. Default must be English
 It is great if your plugin supports other languages, but since English is the most common languages that everyone knows, the default language must be set as English.
