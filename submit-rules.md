@@ -48,7 +48,7 @@ Plugins must not list **redundant** API versions in the plugin.yml. Only the ear
 The source code must be **readable and not obfuscated**. All PHP code can eventually be deobfuscated, so there is really no point of close-sourcing them.
 
 ### 3. No useless messages in startup/shutdown
-Plugins must not output unnecessary status messages like "I have been enabled", "Author: Xxx", etc., unless the plugin startup/shutdown takes really much time (more than 1 second) such that the user may become impatient. See https://bit.ly/pmcolors
+Plugins must not output unnecessary status messages like "I have been enabled", "Author: Xxx", etc., unless the plugin startup/shutdown takes really much time (more than 1 second) such that the user may become impatient. See https://forums.pmmp.io/threads/clean-up-our-consoles.5656/
 
 They are allowed if they represent actual warnings/errors or if they are responding to user input.
 
