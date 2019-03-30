@@ -1,4 +1,4 @@
-NOTE: The PQRS has been **obsoleted** and migrated to section C of the [Poggit Plugin Submission Rules](https://poggit.pmmp.io/submit.rules).
+NOTE: The PQRS has been **obsoleted** and migrated to section C of the [Poggit Plugin Submission Rules](https://poggit.pmmp.io/submit.rules). Do **NOT** use this article as reference anymore.
 
 # Plugin Quality Requirement Standards (PQRS) Version 1.2
 
