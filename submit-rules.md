@@ -2,6 +2,9 @@
 title: Plugin Submission Rules
 ---
 
+## This page has been deprecated. Please go to https://poggit.pmmp.io/rules.edit instead.
+
+<!--
 ## (A) About the plugin
 These rules are about the idea of your plugin. Plugins with purpose violating these rules **will never be approved**.
 
@@ -128,3 +131,4 @@ The changelog should be informative, in case the commit messages are not informa
 
 ### 6. Pick a license carefully.
 If you want to use a custom license, make sure it is formal enough. Examples of bad licenses include `Everyone can use this plugin except leet.cc and @someone-I-hate`.
+-->
