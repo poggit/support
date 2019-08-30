@@ -15,6 +15,8 @@ To release a plugin, you should first [build your plugin on Poggit CI](#how-to-b
 
 Go to your plugin's project page. Find the build you want to release, then click "Release..." on the leftmost column, choose "Submit"/"Update".
 
+Once you submitted the form, it will be placed in a review queue. It usually takes a few days to complete review.
+
 ### What are the plugin submission rules?
 First, you should follow [PQRS](pqrs.md), which is about how you should write your plugin so that it won't have conflict with other plugins. These are good practices that you should follow even if you aren't releasing your plugin on Poggit.
 
