@@ -94,7 +94,6 @@ class dot_poggit_dot_yml{
 				closeTag: bool = true
 				directStdout: bool = true
 				nonPsr: bool = true
-				pluginNameTransformed: bool = true
 				syntaxError: bool = true
 				phpstan: bool = true
 		}
