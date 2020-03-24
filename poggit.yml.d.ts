@@ -96,6 +96,7 @@ class dot_poggit_dot_yml{
 				nonPsr: bool = true
 				syntaxError: bool = true
 				phpstan: bool = true
+			}
 		}
 	}
 }
