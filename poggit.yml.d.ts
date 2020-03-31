@@ -90,7 +90,13 @@ class dot_poggit_dot_yml{
 			excludeDirs: {[path: string]: string}
 			excludeFiles: {[path: string]: string}
 			
-			lint: bool = true // whether to execute lint
+			lint: bool | {
+				closeTag: bool = true
+				directStdout: bool = true
+				nonPsr: bool = true
+				syntaxError: bool = true
+				phpstan: bool = true
+			}
 		}
 	}
 }
