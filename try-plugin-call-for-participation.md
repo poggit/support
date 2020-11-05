@@ -52,6 +52,7 @@ When an `[x]` icon is clicked,
 a modal dialog is opened with each available setup listed as a link:
 
 ```html
+{% raw %}
 <tr>
   <td>
     {{ for each plugins as plugin }}
@@ -70,6 +71,7 @@ a modal dialog is opened with each available setup listed as a link:
     {{ duration }}
   </td>
 </tr>
+{% endraw %}
 ```
 
 ## Protocol
