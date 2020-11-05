@@ -106,5 +106,5 @@ but you confirm your plan to join this program,
 you are also welcome to notify `@SOFe#4765` via Discord in advance.
 
 ## Agenda
-- November 2020: receive applications
+- November 2020: receive initial applications
 - November-December 2020: Poggit frontend update
