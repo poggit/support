@@ -52,26 +52,24 @@ When an `[x]` icon is clicked,
 a modal dialog is opened with each available setup listed as a link:
 
 ```html
-{% raw %}
 <tr>
   <td>
-    {{ for each plugins as plugin }}
-      <img src="{{icon for plugin}}"/>
-    {{ end for }}
+    [[ for each plugins as plugin ]]
+      <img src="[[ icon for plugin ]]"/>
+    [[ end for ]]
   </td>
   <td>
-    <a href="{{ url }}">
-      {{ description }}
+    <a href="[[ url ]]">
+      [[ description ]]
     </a>
   </td>
   <td>
-    {{ players }}
+    [[ players ]]
   </td>
   <td>
-    {{ duration }}
+    [[ duration ]]
   </td>
 </tr>
-{% endraw %}
 ```
 
 ## Protocol
