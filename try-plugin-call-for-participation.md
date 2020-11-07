@@ -108,7 +108,3 @@ There is no deadline for this application form.
 If you are still developing the corresponding mechanism for your server host
 but you confirm your plan to join this program,
 you are also welcome to notify `@SOFe#4765` via Discord in advance.
-
-## Agenda
-- November 2020: receive initial applications
-- November-December 2020: Poggit frontend update
