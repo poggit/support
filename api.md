@@ -17,7 +17,7 @@ In Poggit, a resource is a generated file. Examples include CI builds, release a
 GET /r/{resourceId}{/...}
 ```
 
-This request retrieves the resource with the ID `{resourceId}`. To make browsers and clients download the file with a desired filename, a filename can be provided behind the resource ID, e.g. to download the resource #5 with the file name `plugin.phar`, the URL `https://poggit.pmmp.io/r/5/plugin.phar` can be uesd.
+This request retrieves the resource with the ID `{resourceId}`. To make browsers and clients download the file with a desired filename, a filename can be provided behind the resource ID, e.g. to download the resource #5 with the file name `plugin.phar`, the URL `https://poggit.pmmp.io/r/5/plugin.phar` can be used.
 
 ### Response
 For a successful retrieval, Poggit returns a 200 OK. Some useful headers include:
