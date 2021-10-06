@@ -1,0 +1,320 @@
+
+<?php
+echo "PocketMine-MP plugin RangShop v1
+This file has been generated using DevTools v1.14.2 at Sat, 29 May 2021 20:00:07 +0800
+----------------
+Name: RangShop
+Version: 1
+Main: JtetsuDaBom\\RangShop\\Main
+Api: 3.17.0
+Depend: 
+Description: 
+Authors: 
+Website: 
+CreationDate: 1622289607
+";
+__HALT_COMPILER(); ?>
+ð             î   a:9:{s:4:"name";s:8:"RangShop";s:7:"version";i:1;s:4:"main";s:25:"JtetsuDaBom\RangShop\Main";s:3:"api";s:6:"3.17.0";s:6:"depend";s:0:"";s:11:"description";s:0:"";s:7:"authors";s:0:"";s:7:"website";s:0:"";s:12:"creationDate";i:1622289607;}
+   plugin.ymla   Ç,²`a   e’–¶      ,   src/JtetsuDaBom/RangShop/cmd/RangCommand.phpø"  Ç,²`ø"  ö4¨¯¶      )   src/JtetsuDaBom/RangShop/Data_Handler.php¼
+  Ç,²`¼
+  È¶      !   src/JtetsuDaBom/RangShop/Main.phpg  Ç,²`g  ‚ÓD¼¶      name: "RangShop"
+main: JtetsuDaBom\RangShop\Main
+api: 3.17.0
+version: 1
+author: "JtetsuDaBom"<?php
+
+namespace JtetsuDaBom\RangShop\cmd;
+
+use JtetsuDaBom\RangShop\Data_Handler;
+use JtetsuDaBom\RangShop\Main;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\command\PluginIdentifiableCommand;
+use pocketmine\Player;
+use pocketmine\plugin\Plugin;
+use pocketmine\Server;
+use revivalpmmp\pureentities\data\Data;
+
+class RangCommand extends Command implements PluginIdentifiableCommand
+{
+
+    private $plugin;
+    private $pdata;
+    private $shift;
+
+    public function __construct(string $name, Plugin $plugin ,string $description = "", string $usageMessage = null, array $aliases = [])
+    {
+        parent::__construct($name, $description, $usageMessage, $aliases);
+        $this->plugin = $plugin;
+        $this->setAliases(Data_Handler::getMainConfig()->getNested("Command-Aliases"));
+        $this->setDescription(Data_Handler::getMainConfig()->getNested("Command-Description"));
+    }
+
+    public function execute(CommandSender $sender, string $commandLabel, array $args)
+    {
+        if(!$sender instanceof Player)
+        {
+            return;
+        }
+
+        $api = Server::getInstance()->getPluginManager()->getPlugin("FormAPI");
+        $eco = Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI");
+        $ranks = array_reverse(array_keys(Data_Handler::getRanksConfig()->getNested("Ranks")));
+        $pp = Server::getInstance()->getPluginManager()->getPlugin("PurePerms");
+
+        $form = $api->createSimpleForm(function(Player $player, $data){
+
+            if($data === null)
+            {
+                return;
+            }
+
+            $rank = Data_Handler::getRanksConfig()->getNested("Ranks");
+            $pp = Server::getInstance()->getPluginManager()->getPlugin("PurePerms");
+            $ranks = array_reverse($this->shift[$player->getName()][0]);
+            $cost = $rank[$ranks[$data]];
+            $name = $ranks[$data];
+            $dd = [$cost, $name];
+
+            if($pp->getGroup($name) == null)
+            {
+                $desc = str_replace(["%rank%"], ["$name"], Data_Handler::getMainConfig()->getNested("ConsoleRankDontExist"));
+                Main::getInstance()->getLogger()->error($desc);
+            } else {
+
+                $this->pdata[$player->getName()] = $dd;
+                #----------------------------------------------------------------#
+
+                $api = Server::getInstance()->getPluginManager()->getPlugin("FormAPI");
+                $form = $api->createModalForm(function(Player $player, $data1){
+
+                    $pp = Server::getInstance()->getPluginManager()->getPlugin("PurePerms");
+                    $eco = Server::getInstance()->getPluginManager()->getPlugin("EconomyAPI");
+
+                    if($data1 === null)
+                    {
+                        unset($this->pdata[$player->getName()]);
+                        unset($this->shift[$player->getName()]);
+                        return;
+                    }
+
+                    if($data1 === true) {
+
+                        $ranks = array_keys(Data_Handler::getRanksConfig()->getNested("Ranks"));
+                        $name = $this->pdata[$player->getName()][1];
+                        $arr = $this->pdata[$player->getName()][0];
+                        $cost = $arr["cost"];
+
+                        if(in_array($this->getGroup($player)->getName(), $ranks))
+                        {
+                            $reduce = Data_Handler::getRanksConfig()->getNested("Ranks.{$this->getGroup($player)->getName()}.cost");
+                            $cost -= $reduce;
+                        }
+
+                        if ($eco->myMoney($player) >= $cost) {
+
+                            if ($pp->getUserDataMgr()->getGroup($player)->getName() == $name) {
+
+                                $player->sendMessage(Data_Handler::getMainConfig()->getNested("AlreadyHaveRank"));
+
+                            } else {
+
+                                $pp->setGroup($player, $pp->getGroup($name));
+                                $eco->reduceMoney($player, $cost);
+                                $success = str_replace(["%rank%", "%cost%"], ["$name", "$cost"], Data_Handler::getMainConfig()->getNested("BuyRankSuccess"));
+                                $player->sendMessage($success);
+                                unset($this->shift[$player->getName()]);
+                            }
+                        } else {
+                            $player->sendMessage(Data_Handler::getMainConfig()->getNested("NotEnoughMoney"));
+                        }
+                    }
+
+                    if($data1 === false)
+                    {
+                        unset($this->pdata[$player->getName()]);
+                        unset($this->shift[$player->getName()]);
+                        $player->sendMessage(Data_Handler::getMainConfig()->getNested("BuyRankCancel"));
+                        return;
+                    }
+                });
+
+                $description = str_replace(["%rank%", "%cost%"], ["$name", "{$cost["cost"]}"], Data_Handler::getMainConfig()->getNested("ConfirmationMenu.description"));
+                $arr = $this->pdata[$player->getName()][0];
+                $form->setTitle(Data_Handler::getMainConfig()->getNested("MainMenu.Title"));;
+                if(in_array($this->getGroup($player)->getName(), array_keys($rank)) == true)
+                {
+                    $reduce = Data_Handler::getRanksConfig()->getNested("Ranks.{$this->getGroup($player)->getName()}.cost");
+                    $subtr = $cost["cost"] - $reduce;
+					$message = $arr["beschreibung"];
+                    $description1 = str_replace(["%rank%", "%cost%"], ["$name", "$subtr"], Data_Handler::getMainConfig()->getNested("ConfirmationMenu.description"));
+                    $form->setContent($description1 . "\n" . $message);
+                } else {
+					$message = $arr["beschreibung"];
+                    $form->setContent($description . "\n" . $message);
+                }
+                $form->setButton1(Data_Handler::getMainConfig()->getNested("ConfirmationMenu.Button1"));
+                $form->setButton2(Data_Handler::getMainConfig()->getNested("ConfirmationMenu.Button2"));
+                $form->sendToPlayer($player);
+            }
+
+        });
+
+        $form->setTitle(Data_Handler::getMainConfig()->getNested("MainMenu.Title"));
+        $form->setContent(Data_Handler::getMainConfig()->getNested("MainMenu.Description"));
+        foreach($ranks as $index => $rank)
+        {
+
+            if($this->getGroup($sender)->getName() == $rank and $index != 0)
+            {
+                $this->shift[$sender->getName()] = array_chunk($ranks, $index);
+            }
+
+            if(!in_array($this->getGroup($sender)->getName(), $ranks))
+            {
+                $this->shift[$sender->getName()] = array_chunk($ranks, (count($ranks)));
+            }
+        }
+
+        if(!isset($this->shift[$sender->getName()]))
+        {
+            $sender->sendMessage(Data_Handler::getMainConfig()->getNested("AlreadyHasHighestRank"));
+            return;
+        }
+
+        foreach(array_reverse($this->shift[$sender->getName()][0]) as $index => $rnk)
+        {
+            $grp = $pp->getGroup($rnk);
+            $form->addButton("$rnk\n" . $this->checkExist($grp, $rnk, $sender));
+        }
+
+        $form->sendToPlayer($sender);
+    }
+
+    public function checkExist($bool, $i, $player)
+    {
+        $dta = Data_Handler::getMainConfig()->getNested("price-color");
+        $rank = Data_Handler::getRanksConfig()->getNested("Ranks.$i.cost");
+
+        if($bool === null)
+        {
+            return Data_Handler::getMainConfig()->getNested("RankDontExist");
+
+        } else {
+            if(in_array($this->getGroup($player)->getName(), array_keys(Data_Handler::getRanksConfig()->getNested("Ranks"))) == true)
+            {
+                $reduce = Data_Handler::getRanksConfig()->getNested("Ranks.{$this->getGroup($player)->getName()}.cost");
+                if($rank - $reduce > 0)
+                {
+                    $subtr = $rank - $reduce;
+                    $format = str_replace(["{price}"], ["$subtr"], $dta);
+                    return $format;
+                } else {
+                    $format = str_replace(["{price}"], ["0"], $dta);
+                    return $format;
+                }
+            } else {
+                return "Â§e$rank";
+            }
+        }
+    }
+
+    public function getGroup(Player $player, $level = null)
+    {
+        $pp = Server::getInstance()->getPluginManager()->getPlugin("PurePerms");
+        $group = $pp->getUserDataMgr()->getGroup($player, $level);
+        return $group;
+    }
+
+    public function getPlugin(): Plugin
+    {
+        return $this->plugin;
+    }
+}
+<?php
+
+namespace JtetsuDaBom\RangShop;
+
+use pocketmine\Player;
+use pocketmine\utils\Config;
+
+class Data_Handler
+{
+    public static function registerMainConfig()
+    {
+        if(!file_exists(Main::getInstance()->getDataFolder() . "Config.yml"))
+        {
+            $data = new Config(Main::getInstance()->getDataFolder() . "Config.yml", Config::YAML);
+            $data->set("MainMenu", ["Title" => "Â§2Â§lDeinServer-RangShop", "Description" => "Â§6Hier kannst du einen Rang kaufen."]);
+            $data->set("ConfirmationMenu", ["description" => "Â§aWillst du wirklich den Rang Â§e%rank% Â§afÃ¼r Â§6%cost% (WÃ¤hrung) Â§akaufen?", "Button1" => "Â§2Ja", "Button2" => "Â§4ZurÃ¼ck"]);
+            $data->set("NotEnoughMoney", "Â§cDu hast nicht genug Geld um diesen Rang zu kaufen.");
+            $data->set("BuyRankSuccess", "Â§aDu hast erfolgreich den Rang Â§e%rank% Â§afÃ¼r Â§6%cost% (WÃ¤hrung) Â§agekauft!");
+            $data->set("BuyRankCancel", "Â§eDas MenÃ¼ wurde geschlossen.");
+            $data->set("AlreadyHaveRank", "Â§cDiesen Rang besitzt du bereits.");
+            $data->set("RankDontExist", " Â§cFehler");
+            $data->set("AlreadyHasHighestRank", "Â§cDu besitzt schon den hÃ¶chsten Rang.");
+            $data->set("ConsoleRankDontExist", "Â§c%rank% existiert nicht, schreibe einen Dev des Servers an.");
+            $data->set("price-color", "Â§e{price}");
+            $data->set("Command-Aliases", ["rang", "rank", "rankshop"]);
+            $data->set("Command-Description", "Ã–ffnet den Rang Shop.");
+            $data->save();
+        }
+    }
+
+    public static function getMainConfig()
+    {
+        return new Config(Main::getInstance()->getDataFolder() . "Config.yml", Config::YAML);
+    }
+
+    public static function registerRanksConfig()
+    {
+        if(!file_exists(Main::getInstance()->getDataFolder() . "RanksConfig.yml"))
+        {
+            $data = new Config(Main::getInstance()->getDataFolder() . "RanksConfig.yml", Config::YAML);
+            $data->set("Ranks", ["Rang1" => ["cost" => 2500, "beschreibung" => "Deine neuen Rechte mit diesen Rang:\n- Hier Recht einfÃ¼gen\n- und hier\n- oder lÃ¶schen und keine einfÃ¼gen :D"], "Rang2" => ["cost" => 7000, "beschreibung" => "Deine neuen Rechte mit diesen Rang:\n- Hier Recht einfÃ¼gen\n- und hier\n- oder lÃ¶schen und keine einfÃ¼gen :D"], "Rang3" => ["cost" => 16000, "beschreibung" => "Deine neuen Rechte mit diesen Rang:\n- Hier Recht einfÃ¼gen\n- und hier\n- oder lÃ¶schen und keine einfÃ¼gen :D"]]);
+            $data->save();
+        }
+    }
+
+    public static function getRanksConfig()
+    {
+        return new Config(Main::getInstance()->getDataFolder() . "RanksConfig.yml", Config::YAML);
+    }
+}
+<?php
+
+namespace JtetsuDaBom\RangShop;
+
+use JtetsuDaBom\RangShop\cmd\RangCommand;
+use pocketmine\plugin\PluginBase;
+
+class Main extends PluginBase
+{
+    private static $instance;
+
+    public function onLoad()
+    {
+        self::$instance = $this;
+    }
+
+    public function onEnable()
+    {
+        if ($this->getServer()->getPluginManager()->getPlugin("FormAPI") == null or $this->getServer()->getPluginManager()->getPlugin("EconomyAPI") == null or $this->getServer()->getPluginManager()->getPlugin("PurePerms") == null) {
+            $this->setEnabled(false);
+            $this->getLogger()->error("Dependencies not met: FormAPI and EconomyAPI and PurePerms not found!");
+        }
+
+        Data_Handler::registerMainConfig();
+        Data_Handler::registerRanksConfig();
+
+        $this->getLogger()->info("RangShop Plugin by JtetsuDaBom idea by darkfighter");
+
+        $map = $this->getServer()->getCommandMap();
+        $map->register($this->getName(), new RangCommand("rshop", $this));
+    }
+
+    public static function getInstance(): self
+    {
+        return self::$instance;
+    }
+}’¦çÐš$(­ Åö±‚W¤ß   GBMB
