@@ -28,7 +28,7 @@ i.e. the plugin is now up-to-date and has no significant usability issues.
 `bob` creates a pull request to merge his fix to `alice/Foo`.
 
 ### 3. Declaration
-`bob` declares adverse possession of `alice/Foo` by creating an issue at https://githbu.com/poggit/support/issues,
+`bob` declares adverse possession of `alice/Foo` by creating an issue at https://github.com/poggit/support/issues,
 linking to the pull request created in section 2,
 and explaining the evidence for the eligibility conditions and that it is fixed in `bob/Foo`.
 
