@@ -71,7 +71,7 @@ the project ID shall be reset to `alice/Foo`.
   they are not allowed to do this in the initial version of possession.
   The first version released must only update the plugin without any unnecessary behavioural changes.
   For non-outdated plugins, if the original author refuses to merge feature updates, 
-  he new contributor must release the plugin under a different name (which is the current policy).
+  the new contributor must release the plugin under a different name (which is the current policy).
 - The whole process must not violate any license requirements.
 - Once the procedure completes, the original author can only regain ownership through another process of adverse possession.
   `alice` does not enjoy any privilege regarding the management of `bob/Foo`,
