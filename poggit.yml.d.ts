@@ -18,7 +18,9 @@ class dot_poggit_dot_yml{
 	 */
 	pulls: bool = true
 	/**
-	 * If set to false, builds won't be automatically triggered unless you used keywords like "poggit build all" or "poggit build <project name>"
+	 * If set to false, builds won't be automatically triggered unless you used keywords like "poggit build" or "poggit please build"
+	 * in the commit message.
+	 * If set to true, you can tell poggit not to build by using keywords like "poggit skip", "poggit please skip" or "[ci skip]"
 	 * in the commit message.
 	 */
 	"build-by-default": bool = true
