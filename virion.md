@@ -40,7 +40,7 @@ It MUST also declare an additional `x-virion` attribute in the composer.json:
 }
 ```
 
-`namespace` is a unique namespace root owned by the virion.
+`namespace-root` is a unique namespace root owned by the virion.
 All items declared by the virion MUST reside in this namespace
 or its subnamespaces, e.g. `Name\Space\Child` but not `Name\SpaceSuffix`.
 All items *not* declared by the virion MUST NOT be under this namespace root,
@@ -49,7 +49,7 @@ and SHOULD avoid using it as a substring in their fully-qualified paths
 To avoid ambiguation, the virion namespace root
 MUST have at least two parts separated by a `\`.
 
-The `spec` is the version of the virion specification (i.e. this document).
+`spec` is the version of the virion specification (i.e. this document).
 Do not change this field unless
 the library requires features in newer versions of the virion specification.
 
@@ -147,8 +147,6 @@ just like normal composer libraries:
     }
   }
 ```
-
-The plugin MUST NOT require 
 
 To run this plugin, compile it with a virion compiler tool
 such as [pharynx](https://github.com/SOF3/pharynx).
