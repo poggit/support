@@ -110,7 +110,7 @@ but cannot interact with libraries included from other plugins.
 
 ## Virion user guide
 
-To use a virion, firstt create a composer.json for your project:
+To use a virion, first create a composer.json for your project:
 
 ```yaml
 {
@@ -159,7 +159,7 @@ if the specification version is newer than what the tool supports.
 
 Version 1 was largely coupled with Poggit, resulting in vendor lock-in and poor tooling.
 Its dependency declaration was coupled with Poggit
-and was not supported by most extenral tools,
+and was not supported by most external tools,
 causing a lot of inconvenience for developers
 when trying to integrate third-party PHP tools such as editors and static analysis.
 
