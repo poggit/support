@@ -35,18 +35,19 @@ It MUST also declare an additional `x-virion` attribute in the composer.json:
   "other": "normal fields...",
   "x-virion": {
     "spec": "3.0",
-    "antigen": "Name\\Space"
+    "namespace-root": "Name\\Space"
   }
 }
 ```
 
-`antigen` is a unique namespace owned by the virion.
+`namespace` is a unique namespace root owned by the virion.
 All items declared by the virion MUST reside in this namespace
-(or its subnamespaces, e.g. `Name\Space\Child` but not `Name\SpaceSuffix`).
-All items *not* declared by the virion MUST NOT be under this namespace,
-and SHOULD avoid using the antigen as a substring in their fully-qualified paths
+or its subnamespaces, e.g. `Name\Space\Child` but not `Name\SpaceSuffix`.
+All items *not* declared by the virion MUST NOT be under this namespace root,
+and SHOULD avoid using it as a substring in their fully-qualified paths
 (the latter is only a foolproof requirement to reduce misbehavior of shading tools).
-To avoid ambiguation, the antigen MUST have at least two parts.
+To avoid ambiguation, the virion namespace root
+MUST have at least two parts separated by a `\`.
 
 The `spec` is the version of the virion specification (i.e. this document).
 Do not change this field unless
@@ -60,14 +61,14 @@ A virion MUST only export classes, interfaces, traits and enums.
 Namespace functions, namespace constants and global variables MUST NOT be used.
 
 When a virion references its own classes from a global scope,
-the antigen MUST be a contiguous, intact prefix of the reference,
+the virion namespace root MUST be a contiguous, intact prefix of the reference,
 parsed in the form of `T_NAME_QUALIFIED` or `T_NAME_FULLY_QUALIFIED`.
-In other words, for a virion with antigen `Foo\Bar`:
+In other words, for a virion with namespace root `Foo\Bar`:
 
 | Corollary | Good examples | Bad examples |
 | :---: | :---: | :---: |
-| Nested use statements MUST NOT split the antigen. | `use Foo\Bar\Qux;` <br/> `use Foo\Bar\{Qux}` | `use Foo\{Bar\Qux}` |
-| Aliases MUST NOT split the antigen. | `use Foo\Bar as Qux; Qux\Xxx::yyy();` | `use Foo as Qux; Qux\Bar\Xxx::yyy();` |
+| Nested use statements MUST NOT split the namespace root. | `use Foo\Bar\Qux;` <br/> `use Foo\Bar\{Qux}` | `use Foo\{Bar\Qux}` |
+| Aliases MUST NOT split the namespace root. | `use Foo\Bar as Qux; Qux\Xxx::yyy();` | `use Foo as Qux; Qux\Bar\Xxx::yyy();` |
 | String class paths are not allowed | `\Foo\Bar\Qux::class;`/`Relative::class` <br/>`self::class`/`get_class()` <br/> `__CLASS__`/`__NAMESPACE__` <br/> `"Foo\\Bar\\Qux"` |
 
 It is valid to test whether the virion has been shaded using `__NAMESPACE__ !== "anti\\gen"`.
@@ -91,7 +92,8 @@ To develop a virion, create a composer library by creating the composer.json:
     "SOFe\\AwaitGenerator\\": "src"
   },
   "x-virion": {
-    "antigen": "SOFe\\AwaitGenerator"
+    "spec": "3.0",
+    "namespace-root": "SOFe\\AwaitGenerator"
   }
 }
 ```
