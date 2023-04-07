@@ -54,8 +54,16 @@ Do not change this field unless
 the library requires features in newer versions of the virion specification.
 
 A virion MAY declare `require` dependencies that also declare the `x-virion` field.
-Non-virion libraries MUST NOT be included
-(this limitation may be lifted in future minor versions of the virion specification).
+Different dependency types have different rules (by order of precedence):
+
+- Platform requirements (`php`, `ext-*`, etc.) are allowed
+  and SHOULD NOT interfere with compilation tooling
+  because compilation environment may different from execution environment.
+- Dependencies with non-empty `type` other than `library` are excluded.
+  This includes `pmmp/pocketmine-mp`.
+- Dependencies with `x-virion` are shaded.
+- Dependencies not matching any of the rules above MUST NOT be included.
+  This limitation may be lifted in future minor versions of the virion specification.
 
 A virion MUST only export classes, interfaces, traits and enums.
 Namespace functions, namespace constants and global variables MUST NOT be used.
@@ -139,6 +147,8 @@ just like normal composer libraries:
     }
   }
 ```
+
+The plugin MUST NOT require 
 
 To run this plugin, compile it with a virion compiler tool
 such as [pharynx](https://github.com/SOF3/pharynx).
