@@ -53,17 +53,14 @@ MUST have at least two parts separated by a `\`.
 Do not change this field unless
 the library requires features in newer versions of the virion specification.
 
-A virion MAY declare `require` dependencies that also declare the `x-virion` field.
-Different dependency types have different rules (by order of precedence):
-
-- Platform requirements (`php`, `ext-*`, etc.) are allowed
-  and SHOULD NOT interfere with compilation tooling
-  because compilation environment may different from execution environment.
-- Dependencies with non-empty `type` other than `library` are excluded.
-  This includes `pmmp/pocketmine-mp`.
-- Dependencies with `x-virion` are shaded.
-- Dependencies not matching any of the rules above MUST NOT be included.
-  This limitation may be lifted in future minor versions of the virion specification.
+A virion or a plugin MAY also declare `require` dependencies.
+However, only dependencies that declare the `x-virion` field are included.
+Transitive dependencies are included if and only if
+all steps between the plugin and the transitive dependency also have the `x-virion` field.
+Multiple instances of the same dependency are only shaded once,
+so multiple libraries using the same dependency may accept the dependency type directly.
+However, library types must not appear directly on cross-plugin API boundaries
+as they would be incompatible due to shading.
 
 A virion MUST only export classes, interfaces, traits and enums.
 Namespace functions, namespace constants and global variables MUST NOT be used.
