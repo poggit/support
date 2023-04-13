@@ -28,14 +28,16 @@ to a unique namespace owned by the plugin to avoid duplication.
 ## Library specification
 
 Virions are distributed as a normal composer library.
-It MUST also declare an additional `x-virion` attribute in the composer.json:
+It MUST also declare a `virion` extra attribute in the composer.json:
 
 ```json
 {
   "other": "normal fields...",
-  "x-virion": {
-    "spec": "3.0",
-    "namespace-root": "Name\\Space"
+  "extra": {
+    "virion": {
+      "spec": "3.0",
+      "namespace-root": "Name\\Space"
+    }
   }
 }
 ```
@@ -54,9 +56,9 @@ Do not change this field unless
 the library requires features in newer versions of the virion specification.
 
 A virion or a plugin MAY also declare `require` dependencies.
-However, only dependencies that declare the `x-virion` field are included.
+However, only dependencies that declare the `extra.virion` field are included.
 Transitive dependencies are included if and only if
-all steps between the plugin and the transitive dependency also have the `x-virion` field.
+all steps between the plugin and the transitive dependency also have the `extra.virion` field.
 Multiple instances of the same dependency are only shaded once,
 so multiple libraries using the same dependency may accept the dependency type directly.
 However, library types must not appear directly on cross-plugin API boundaries
@@ -96,9 +98,11 @@ To develop a virion, create a composer library by creating the composer.json:
   "autoload": {
     "SOFe\\AwaitGenerator\\": "src"
   },
-  "x-virion": {
-    "spec": "3.0",
-    "namespace-root": "SOFe\\AwaitGenerator"
+  "extra": {
+    "virion": {
+      "spec": "3.0",
+      "namespace-root": "SOFe\\AwaitGenerator"
+    }
   }
 }
 ```
