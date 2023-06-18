@@ -94,7 +94,7 @@ The term "reference" here includes parameter types, return types,
 `extends`/`implements` target and attributes.
 
 Once a virion has been published,
-the defition of all items under the shared namespace root MUST NOT ever be changed.
+the definition of all items under the shared namespace root MUST NOT ever be changed.
 In particular:
 
 - Semantics-sensitive attributes and doc comments MUST NOT be changed.
