@@ -1,4 +1,4 @@
-# Virion Documentation, Version 3.0
+# Virion Documentation, Version 3.1
 
 > The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
 > NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
@@ -36,11 +36,18 @@ It MUST also declare a `virion` extra attribute in the composer.json:
   "extra": {
     "virion": {
       "spec": "3.0",
-      "namespace-root": "Name\\Space"
+      "namespace-root": "Name\\Space",
+      "shared-namespace-root": "Shared\\Name\\Space" # optional
     }
   }
 }
 ```
+
+`spec` is the version of the virion specification (i.e. this document).
+Do not change this field unless
+the library requires features in newer versions of the virion specification.
+
+### Namespace root
 
 `namespace-root` is a unique namespace root owned by the virion.
 All items declared by the virion MUST reside in this namespace
@@ -51,9 +58,59 @@ and SHOULD avoid using it as a substring in their fully-qualified paths
 To avoid ambiguation, the virion namespace root
 MUST have at least two parts separated by a `\`.
 
-`spec` is the version of the virion specification (i.e. this document).
-Do not change this field unless
-the library requires features in newer versions of the virion specification.
+A virion MUST only export the following items under the namespace root:
+
+- Classes
+- Enums
+- Interfaces
+- Traits
+
+Namespace functions, namespace constants and global variables MUST NOT be used.
+
+### Shared namespace root
+
+`shared-namespace-root` is similar to `namespace-root`,
+but items declared under the shared namespace root are not shaded.
+This is to allow (potentially different versions of) the same virion
+to be used in multiple plugins as separate shaded instances
+but still communicate correctly through the shared namespace.
+
+A virion MUST only export the following items under the shared namespace root:
+
+- Enums
+- Interfaces
+  - Constant definitions must be resolvable at compile time.
+- Classes with only public fields and public constants.
+  - Abstract and final classes are allowed
+  - Public static fields are allowed.
+  - Constant definitions must be resolvable at compile time.
+
+Items in the shared namespace MUST NOT reference any shaded items,
+including shaded items declared by transitive dependencies.
+The term "reference" here includes parameter types, return types,
+`extends`/`implements` target and attributes.
+
+Once a virion has been published,
+the defition of all items under the shared namespace root MUST NOT ever be changed.
+In particular:
+
+- Semantics-sensitive attributes and doc comments MUST NOT be changed.
+- For enums, cases MUST NOT be added, removed, renamed or rearranged.
+  (Reordering breaks the stability of `UnitEnum::cases()`).
+- For interfaces, methods and constants MUST NOT be added, removed or renamed,
+  but MAY be rearranged.
+  The values of constants and default values of method parameters
+  MUST remain the same when resolved under the same circumstances.
+  Parameters MAY be renamed,
+  but the parameter types and return types MUST NOT change
+  (subtypes/supertypes are not allowed).
+- For classes, all fields MUST NOT be added, removed or renamed or change in staticness,
+  but MAY be rearranged.
+  The values of constants and default values of the fields
+  MUST remain the same when resolved under the same circumstances.
+  Field types MUST NOT change (subtypes/supertypes are not allowed).
+
+### Declaring dependencies
 
 A virion or a plugin MAY also declare `require` dependencies.
 However, only dependencies that declare the `extra.virion` field are included.
@@ -63,9 +120,6 @@ Multiple instances of the same dependency are only shaded once,
 so multiple libraries using the same dependency may accept the dependency type directly.
 However, library types must not appear directly on cross-plugin API boundaries
 as they would be incompatible due to shading.
-
-A virion MUST only export classes, interfaces, traits and enums.
-Namespace functions, namespace constants and global variables MUST NOT be used.
 
 When a virion references its own classes from a global scope,
 the virion namespace root MUST be a contiguous, intact prefix of the reference,
@@ -154,7 +208,7 @@ such as [pharynx](https://github.com/SOF3/pharynx).
 The tool shall scan virions from the composer.json automatically
 and install them.
 
-## Versions of this specification
+## Previous versions
 
 A virion that uses spec version `x.y`
 also conforms to spec versions `x.z` where `z >= y`.
@@ -164,7 +218,12 @@ new features that require newer versions of virion-related tools.
 Tools that treat virions specially MUST abort with an error
 if the specification version is newer than what the tool supports.
 
-### Comparison to version 1.x
+### Version 3.0 -\> 3.1
+
+Version 3.1 introduces the notion of "shared namespaces"
+to allow cross-instance communication using shared data classes, interfaces and constants.
+
+### Version 1.x -\> 3.0
 
 Version 1 was largely coupled with Poggit, resulting in vendor lock-in and poor tooling.
 Its dependency declaration was coupled with Poggit
@@ -172,7 +231,7 @@ and was not supported by most external tools,
 causing a lot of inconvenience for developers
 when trying to integrate third-party PHP tools such as editors and static analysis.
 
-### Comparison to version 2.x
+### Version 2.x -\> 3.0
 
 Version 2 was never implemented as its specification was too sophisticated,
 attempting to solve many problems such as
