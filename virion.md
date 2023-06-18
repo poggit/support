@@ -75,6 +75,9 @@ This is to allow (potentially different versions of) the same virion
 to be used in multiple plugins as separate shaded instances
 but still communicate correctly through the shared namespace.
 
+The shared namespace root MUST NOT intersect with the namespace root.
+Conventionally, developers CAN use the form `Shared\{NamespaceRoot}` as the shared namespace root.
+
 A virion MUST only export the following items under the shared namespace root:
 
 - Enums
@@ -155,7 +158,8 @@ To develop a virion, create a composer library by creating the composer.json:
   "extra": {
     "virion": {
       "spec": "3.0",
-      "namespace-root": "SOFe\\AwaitGenerator"
+      "namespace-root": "SOFe\\AwaitGenerator",
+      "shared-namespace-root": "Shared\\SOFe\\AwaitGenerator" # optional
     }
   }
 }
