@@ -35,7 +35,7 @@ It MUST also declare a `virion` extra attribute in the composer.json:
   "other": "normal fields...",
   "extra": {
     "virion": {
-      "spec": "3.0",
+      "spec": "3.1",
       "namespace-root": "Name\\Space",
       "shared-namespace-root": "Shared\\Name\\Space" # optional
     }
@@ -157,7 +157,7 @@ To develop a virion, create a composer library by creating the composer.json:
   },
   "extra": {
     "virion": {
-      "spec": "3.0",
+      "spec": "3.1",
       "namespace-root": "SOFe\\AwaitGenerator",
       "shared-namespace-root": "Shared\\SOFe\\AwaitGenerator" # optional
     }
