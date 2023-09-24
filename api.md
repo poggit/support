@@ -52,6 +52,8 @@ GET /plugins.json
 GET /plugins.list
 GET /releases.min.json # this one will generate a minimized output
 GET /plugins.min.json # this one will generate a minimized output
+
+GET /plugins.min.json?name=sheep # you can set custom name, id, version, category
 ```
 
 There are a few special points to note:
