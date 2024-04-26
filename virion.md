@@ -153,7 +153,9 @@ To develop a virion, create a composer library by creating the composer.json:
     "php": "^8.1" # OPTIONAL but RECOMMENDED if pmmp/pocketmine-mp is omitted
   },
   "autoload": {
-    "SOFe\\AwaitGenerator\\": "src"
+    "psr-4": {
+      "SOFe\\AwaitGenerator\\": "src"
+    }
   },
   "extra": {
     "virion": {
@@ -186,7 +188,9 @@ To use a virion, first create a composer.json for your project:
     "pmmp/pocketmine-mp": "^4.13.0"
   },
   "autoload": {
-    "Author\\Plugin": "src"
+    "psr-4": {
+      "Author\\Plugin": "src"
+    }
   }
 }
 ```
@@ -202,7 +206,9 @@ just like normal composer libraries:
       "pmmp/pocketmine-mp": "^4.13.0"
     },
     "autoload": {
-      "Author\\Plugin": "src"
+      "psr-4": {
+        "Author\\Plugin": "src"
+      }
     }
   }
 ```
