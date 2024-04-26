@@ -149,13 +149,11 @@ To develop a virion, create a composer library by creating the composer.json:
 {
   "name": "sof3/await-generator",
   "require": {
-    "pmmp/pocketmine-mp": "^4.13.0", # RECOMMENDED unless virion does not use PM API
+    "pocketmine/pocketmine-mp": "^5.0.0", # RECOMMENDED unless virion does not use PM API
     "php": "^8.1" # OPTIONAL but RECOMMENDED if pmmp/pocketmine-mp is omitted
   },
   "autoload": {
-    "psr-4": {
-      "SOFe\\AwaitGenerator\\": "src"
-    }
+    "classmap": ["FolderContainingPluginYml/src"]
   },
   "extra": {
     "virion": {
@@ -185,12 +183,10 @@ To use a virion, first create a composer.json for your project:
 {
   "name": "author/project",
   "require": {
-    "pmmp/pocketmine-mp": "^4.13.0"
+    "pocketmine/pocketmine-mp": "^5.0.0"
   },
   "autoload": {
-    "psr-4": {
-      "Author\\Plugin": "src"
-    }
+    "classmap": ["FolderContainingPluginYml/src"]
   }
 }
 ```
@@ -203,12 +199,10 @@ just like normal composer libraries:
     "name": "author/project",
     "require": {
 +     "sof3/await-generator": "^3.0.0",
-      "pmmp/pocketmine-mp": "^4.13.0"
+      "pocketmine/pocketmine-mp": "^5.0.0"
     },
     "autoload": {
-      "psr-4": {
-        "Author\\Plugin": "src"
-      }
+      "classmap": ["FolderContainingPluginYml/src"]
     }
   }
 ```
