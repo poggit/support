@@ -153,7 +153,7 @@ To develop a virion, create a composer library by creating the composer.json:
     "php": "^8.1" # OPTIONAL but RECOMMENDED if pmmp/pocketmine-mp is omitted
   },
   "autoload": {
-    "classmap": ["FolderContainingPluginYml/src"]
+    "classmap": ["src"]
   },
   "extra": {
     "virion": {
@@ -186,7 +186,7 @@ To use a virion, first create a composer.json for your project:
     "pocketmine/pocketmine-mp": "^5.0.0"
   },
   "autoload": {
-    "classmap": ["FolderContainingPluginYml/src"]
+    "classmap": ["src"]
   }
 }
 ```
@@ -202,7 +202,7 @@ just like normal composer libraries:
       "pocketmine/pocketmine-mp": "^5.0.0"
     },
     "autoload": {
-      "classmap": ["FolderContainingPluginYml/src"]
+      "classmap": ["src"]
     }
   }
 ```
